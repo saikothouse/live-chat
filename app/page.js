@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { signInWithGoogle } from './auth';
 import { database } from './firebase/config';
 import { ref, onValue, set, remove } from 'firebase/database';
-import { useAuth } from './auth'; // Assuming you have a custom hook for auth
+import { useAuth } from './auth'; // Ensure you have a custom hook for auth
 
 const ChatApp = () => {
     const [messages, setMessages] = useState([]);
@@ -12,7 +11,7 @@ const ChatApp = () => {
     const [loading, setLoading] = useState(true);
     const [typing, setTyping] = useState(false);
     const [error, setError] = useState('');
-    const { user } = useAuth(); // Get the currently logged-in user
+    const { user, signInWithGoogle } = useAuth(); // Get the currently logged-in user and signIn function
     const messagesEndRef = useRef(null);
     const typingTimeoutRef = useRef(null);
 
@@ -89,7 +88,7 @@ const ChatApp = () => {
                     <>
                         {error && <div className="text-red-500 text-center">{error}</div>}
                         {messages.map((msg, index) => (
-                            <div key ={index} className={`p-2 my-2 rounded ${msg.user === (user?.displayName || 'Anonymous') ? 'bg-blue-200 self-end' : 'bg-gray-200 self-start'}`}>
+                            <div key={index} className={`p-2 my-2 rounded ${msg.user === (user?.displayName || 'Anonymous') ? 'bg-blue-200 self-end' : 'bg-gray-200 self-start'}`}>
                                 <div className="flex items-center">
                                     <div className="font-semibold">{msg.user}</div>
                                     {msg.user === (user?.displayName || 'Anonymous') && (
