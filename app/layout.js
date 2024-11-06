@@ -25,8 +25,6 @@ const Layout = ({ children }) => {
                 </div>
                 <nav className="flex space-x-4">
                     <Link href="/" className="text-white hover:underline">Home</Link>
-                    <Link href="/about" className="text-white hover:underline">About</Link>
-                    <Link href="/contact" className="text-white hover:underline">Contact</Link>
                 </nav>
                 <button onClick={toggleDarkMode} className="bg-white text-blue-500 p-2 rounded">
                     {isDarkMode ? 'Light Mode' : 'Dark Mode'}
