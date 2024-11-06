@@ -3,12 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyDXkIMxlRbEU2DyNYrgVrwNywPSxKgmyH4",
+  authDomain: "binlistio.firebaseapp.com",
+  databaseURL: "https://binlistio-default-rtdb.firebaseio.com",
+  projectId: "binlistio",
+  storageBucket: "binlistio.appspot.com",
+  messagingSenderId: "10459136687",
+  appId: "1:10459136687:web:0b614249a85b0297af0a5a",
+  measurementId: "G-HMH7WT44TT"
 };
 
 const app = initializeApp(firebaseConfig);
