@@ -1,23 +1,54 @@
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from './firebase/config';
+'use client';
+
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { auth } from './firebase/config'; // Ensure this path is correct
 
 const provider = new GoogleAuthProvider();
 
-export const signInWithGoogle = async () => {
-    try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        console.log("User  signed in: ", user);
-        return user; // Return the user object for further use
-    } catch (error) {
-        // Handle specific error cases
-        let errorMessage = "An error occurred during sign-in.";
-        if (error.code === 'auth/popup-closed-by-user') {
-            errorMessage = "The sign-in popup was closed before completion.";
-        } else if (error.code === 'auth/cancelled-popup-request') {
-            errorMessage = "The sign-in request was cancelled.";
+// Create the AuthContext
+const AuthContext = createContext();
+
+// AuthProvider component to wrap your application
+export const AuthProvider = ({ children }) => {
+    const [user, setUser ] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setUser (user);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const signInWithGoogle = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            console.log("User  signed in: ", user);
+            setUser (user); // Update the user state
+        } catch (error) {
+            console.error("Error signing in: ", error);
         }
-        console.error("Error signing in: ", error);
-        throw new Error(errorMessage); // Throw a user-friendly error
-    }
+    };
+
+    const logout = async () => {
+        try {
+            await auth.signOut();
+            setUser (null); // Update the user state
+        } catch (error) {
+            console.error("Error signing out: ", error);
+        }
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, signInWithGoogle, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+// Custom hook to use the AuthContext
+export const useAuth = () => {
+    return useContext(AuthContext);
 };
