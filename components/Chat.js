@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { collection, addDoc, onSnapshot, query, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../lib/firebase";
 import { format } from "date-fns";
 
 const Chat = () => {
