@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { signInWithGoogle } from './auth';
 import { database } from './firebase/config';
 import { ref, onValue, set } from 'firebase/database';
 import { useAuth } from './auth'; // Assuming you have a custom hook for auth
@@ -9,7 +8,7 @@ import { useAuth } from './auth'; // Assuming you have a custom hook for auth
 const ChatApp = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const { user } = useAuth(); // Get the currently logged-in user
+    const { user, signInWithGoogle } = useAuth(); // Get the currently logged-in user and signIn function
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
@@ -57,7 +56,7 @@ const ChatApp = () => {
                     <div key={index} className={`p-2 my-2 rounded ${msg.user === (user?.displayName || 'Anonymous') ? 'bg-blue-200 self-end' : 'bg-gray-200 self-start'}`}>
                         <div className="font-semibold">{msg.user}</div>
                         <div>{msg.text}</div>
-                        <div className="text-xs text-gray-500">{new Date(msg.timestamp).toLocaleTimeString()}</div>
+                        <div className="text-xs text-gray-500">{new Date(msg.timestamp).toLocaleTime String()}</div>
                     </div>
                 ))}
                 <div ref={messagesEndRef} />
