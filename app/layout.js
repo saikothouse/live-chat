@@ -1,14 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Image from 'next/image'; // Import Next.js Image component
+import Link from 'next/link'; // Import Link for navigation
+import Image from 'next/image'; // Import Image for logo
 import "./globals.css";
 
-const Layout = ({ children }) => {
+export default function Layout({ children }) {
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const router = useRouter();
 
     const toggleDarkMode = () => {
         setIsDarkMode((prev) => !prev);
@@ -20,11 +18,13 @@ const Layout = ({ children }) => {
         <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'}`}>
             <header className="p-4 bg-blue-500 flex justify-between items-center">
                 <div className="flex items-center">
-                    <Image src="/logo.png" alt="Logo" width={32} height={32} className="mr-2" /> {/* Using Next.js Image component */}
+                    <Image src="/logo.png" alt="Logo" width={32} height={32} className="mr-2" />
                     <h1 className="text-xl">My App</h1>
                 </div>
                 <nav className="flex space-x-4">
                     <Link href="/" className="text-white hover:underline">Home</Link>
+                    <Link href="/about" className="text-white hover:underline">About</Link>
+                    <Link href="/contact" className="text-white hover:underline">Contact</Link>
                 </nav>
                 <button onClick={toggleDarkMode} className="bg-white text-blue-500 p-2 rounded">
                     {isDarkMode ? 'Light Mode' : 'Dark Mode'}
@@ -38,6 +38,4 @@ const Layout = ({ children }) => {
             </footer>
         </div>
     );
-};
-
-export default Layout;
+}
