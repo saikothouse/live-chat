@@ -2,32 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Custom global styles using @layer directive */
+
+/* Base Layer */
+@layer base {
+    body {
+        @apply font-sans bg-gray-100 text-gray-900; /* Apply Tailwind utility classes */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-semibold; /* Use Tailwind font weight */
+    }
+
+    p {
+        @apply mb-4; /* Margin bottom for paragraphs */
+    }
+
+    a {
+        @apply text-blue-500 hover:underline; /* Tailwind styles for links */
+    }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Components Layer */
+@layer components {
+    button {
+        @apply bg-blue-500 text-white font-semibold py-2 px-4 rounded; /* Tailwind button styles */
+        transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+    button:hover {
+        @apply bg-blue-600; /* Darker blue on hover */
+    }
+
+    input, textarea {
+        @apply border border-gray-300 rounded-md p-2 w-full; /* Tailwind styles for inputs */
+        transition: border-color 0.3s ease; /* Smooth transition */
+    }
+
+    input:focus, textarea:focus {
+        @apply border-blue-500 outline-none; /* Change border color on focus */
+    }
+
+    /* Card Component */
+    .card {
+        @apply bg-white shadow-md rounded-lg p-4; /* Card styles */
+    }
+
+    .card-header {
+        @apply font-bold text-lg mb-2; /* Header styles */
+    }
+
+    .card-body {
+        @apply text-gray-700; /* Body text color */
+    }
+
+    /* Alert Component */
+    .alert {
+        @apply p-4 mb-4 rounded-lg; /* Alert styles */
+    }
+
+    .alert-success {
+        @apply bg-green-100 text-green-800; /* Success alert styles */
+    }
+
+    .alert-error {
+        @apply bg-red-100 text-red-800; /* Error alert styles */
+    }
+
+    /* Modal Component */
+    .modal {
+        @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50; /* Modal backdrop */
+    }
+
+    .modal-content {
+        @apply bg-white rounded-lg p-6 shadow-lg; /* Modal content styles */
+    }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
+/* Utilities Layer */
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    /* Button Variants */
+    .btn-primary {
+        @apply bg-blue-500 text-white; /* Primary button */
+    }
+
+    .btn-secondary {
+        @apply bg-gray-500 text-white; /* Secondary button */
+    }
+
+    .btn-danger {
+        @apply bg-red-500 text-white; /* Danger button */
+    }
+
+    .btn-primary:hover {
+        @apply bg-blue-600; /* Primary button hover */
+    }
+
+    .btn-secondary:hover {
+        @apply bg-gray-600; /* Secondary button hover */
+    }
+
+    .btn-danger:hover {
+        @apply bg-red-600; /* Danger button hover */
+    }
+
+    /* Utility Classes for Flexbox */
+    .flex-center {
+        @apply flex items-center justify-center; /* Center flex items */
+    }
+
+    .flex-column {
+        @apply flex flex-col; /* Column direction */
+    }
+
+    .flex-row {
+        @apply flex flex-row; /* Row direction */
+    }
 }
+
+/* Additional custom styles can go here */
